@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.chamelalaboratory.hospitalManagement</groupId>
-    <artifactId>HospitalManagementPAF2020</artifactId>
+    <artifactId>HospitalManagementPAF_2020</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>HospitalManagementPAF2020</name>
+    <name>HospitalManagementPAF_2020</name>
 
     <build>
-        <finalName>HospitalManagementPAF2020</finalName>
+        <finalName>HospitalManagementPAF_2020</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
