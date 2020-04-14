@@ -10,10 +10,11 @@ public class Doctor {
 	 private String DocLName;
 	 private String DocPosition;
 	 private String DocFee;
-	 private int DocNumber;
 	 private String DocAddress;
 	 private int hosID;
+	 private int MobileNo;
 	 
+	
 	public int getDocID() {
 		return DocID;
 	}
@@ -38,17 +39,17 @@ public class Doctor {
 	public void setDocPosition(String docPosition) {
 		DocPosition = docPosition;
 	}
+	public int getMobileNo() {
+		return MobileNo;
+	}
+	public void setMobileNo(int mobileNo) {
+		MobileNo = mobileNo;
+	}
 	public String getDocFee() {
 		return DocFee;
 	}
 	public void setDocFee(String docFee) {
 		DocFee = docFee;
-	}
-	public int getDocNumber() {
-		return DocNumber;
-	}
-	public void setDocNumber(int docNumber) {
-		DocNumber = docNumber;
 	}
 	public String getDocAddress() {
 		return DocAddress;
@@ -62,7 +63,13 @@ public class Doctor {
 	public void setHosID(int hosID) {
 		this.hosID = hosID;
 	}
-	 
+	@Override
+	public String toString() {
+		return "Doctor [DocID=" + DocID + ", DocFName=" + DocFName + ", DocLName=" + DocLName + ", DocPosition="
+				+ DocPosition + ", DocFee=" + DocFee + ", DocAddress=" + DocAddress + ", hosID=" + hosID + ", MobileNo="
+				+ MobileNo + "]";
+	}
+	
 	 
 	 
 }
