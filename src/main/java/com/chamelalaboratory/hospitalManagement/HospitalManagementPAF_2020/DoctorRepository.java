@@ -22,15 +22,19 @@ public class DoctorRepository
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(url,username,password);
+			
+			System.out.println("DB Connected Successfully !!!");
 
 		}
 		catch(Exception e)
 		{
+			System.out.println("DB Connection Lost ....");
+			
 			System.out.println(e);
 		}
 	}
 	
-	
+	// retrive all registered doctors in db.
 	public List<Doctor> getDoctors()
 	{
 		List<Doctor> doctors = new ArrayList<>();
@@ -51,7 +55,9 @@ public class DoctorRepository
 				d.setDocAddress(rs.getString(7));
 				d.setHosID(rs.getInt(8));
 				
+				
 				doctors.add(d);
+				
 			}
 		}
 		catch(Exception e)
@@ -62,7 +68,7 @@ public class DoctorRepository
 	}
 	
 	
-	
+	// retrive particular registered doctor by id in db
 	public Doctor getDoctor(int id) 
 	{
 		String sql = "select * from Doctor where DocID="+id;
@@ -80,6 +86,7 @@ public class DoctorRepository
 				d.setDocFee(rs.getString(5));
 				d.setMobileNo(rs.getInt(6));
 				d.setDocAddress(rs.getString(7));
+				
 				d.setHosID(rs.getInt(8));
 			}
 		}
@@ -91,7 +98,8 @@ public class DoctorRepository
 	}
 
 
-	public void Create(Doctor d1) {
+	// create new doctor instance
+	public boolean Create(Doctor d1) {
 		String sql = "insert into Doctor values (?,?,?,?,?,?,?,?)";
 		try
 		{
@@ -107,19 +115,21 @@ public class DoctorRepository
 			
 			st.executeUpdate();
 			
-			
+			return true;
 		}
 		catch(Exception e)
 		{
 			System.out.println(e);
+			return false;
 		}
+		
 		
 	}
 	
 	
 	
-	
-	public void Update(Doctor d1) {
+	// update current doctor details in db
+	public boolean Update(Doctor d1) {
 		String sql = "update doctor set DocFName=?, DocLName=?, DocPosition=?, DocFee=?, MobileNo=?, DocAddress=?, HosID=? where DocID=?";
 		try
 		{
@@ -135,18 +145,20 @@ public class DoctorRepository
 			st.setInt(8, d1.getDocID());
 			
 			st.executeUpdate();
-			
+			return true;
 			
 		}
 		catch(Exception e)
 		{
 			System.out.println(e);
+			return false;
 		}
 		
 	}
 
 
-	public void kill(int id) {
+	// delete doctor details in db
+	public boolean kill(int id) {
 		
 		String sql = "delete from doctor where DocID=?";
 		try
@@ -156,12 +168,13 @@ public class DoctorRepository
 			st.setInt(1, id);
 			
 			st.executeUpdate();
-			
+			return true;
 			
 		}
 		catch(Exception e)
 		{
 			System.out.println(e);
+			return false;
 		}
 		
 		

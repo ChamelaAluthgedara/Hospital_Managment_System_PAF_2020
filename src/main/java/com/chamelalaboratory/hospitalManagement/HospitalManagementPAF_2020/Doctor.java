@@ -13,6 +13,7 @@ public class Doctor {
 	 private String DocAddress;
 	 private int hosID;
 	 private int MobileNo;
+	 char pos = '"';
 	 
 	
 	public int getDocID() {
@@ -65,9 +66,9 @@ public class Doctor {
 	}
 	@Override
 	public String toString() {
-		return "Doctor [DocID=" + DocID + ", DocFName=" + DocFName + ", DocLName=" + DocLName + ", DocPosition="
-				+ DocPosition + ", DocFee=" + DocFee + ", DocAddress=" + DocAddress + ", hosID=" + hosID + ", MobileNo="
-				+ MobileNo + "]";
+		return "\nDocID= \t"+ pos + DocID+ pos + ",\nDocFName= "+ pos + DocFName+ pos + ",\nDocLName= "+ pos + DocLName+ pos + ",\nDocPosition= "
+				+ pos+ DocPosition+ pos + ",\nDocFee= "+ pos + DocFee+ pos + ",\nDocAddress= " + pos +DocAddress + pos + ",\nhosID= "+ pos + hosID+ pos + ",\nMobileNo= \t" 
+				+ pos+ MobileNo+ pos + "";
 	}
 	
 	 
