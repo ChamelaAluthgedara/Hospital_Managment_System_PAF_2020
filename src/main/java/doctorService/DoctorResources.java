@@ -1,4 +1,4 @@
-package doctorManagement;
+package doctorService;
 
 import java.util.ArrayList;
 import java.util.List;

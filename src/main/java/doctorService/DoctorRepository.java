@@ -1,4 +1,4 @@
-package doctorManagement;
+package doctorService;
 
 import java.sql.*;
 
