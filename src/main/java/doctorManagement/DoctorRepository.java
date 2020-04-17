@@ -1,4 +1,4 @@
-package com.chamelalaboratory.hospitalManagement.HospitalManagementPAF2020;
+package doctorManagement;
 
 import java.sql.*;
 
