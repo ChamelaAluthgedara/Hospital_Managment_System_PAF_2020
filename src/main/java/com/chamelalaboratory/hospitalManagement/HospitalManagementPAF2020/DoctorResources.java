@@ -1,4 +1,4 @@
-package com.chamelalaboratory.hospitalManagement.HospitalManagementPAF_2020;
+package com.chamelalaboratory.hospitalManagement.HospitalManagementPAF2020;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class DoctorResources {
 		if(repo.Create(d1))
 		{
 			
-			return "New data Successfully Inserted.";
+			return "New data Successfully Inserted." + "\nDetails: " + d1;
 		}
 		else {
 			return "Task Failed. Input DocID already exist.";
@@ -84,33 +84,25 @@ public class DoctorResources {
 				List<String> changes = new ArrayList<String>();
 				char op = '"';
 				
-				String firstname = beforeUpdate.getDocFName();
-				String lastname = beforeUpdate.getDocLName();
-				String position = beforeUpdate.getDocPosition();
-				String fee = beforeUpdate.getDocFee();
-				int mobi = beforeUpdate.getMobileNo();
-				String add = beforeUpdate.getDocAddress();
-				int hosID = beforeUpdate.getHosID();
-				
-				if( !firstname.equals(d1.getDocFName().toString())) {
+				if( !beforeUpdate.getDocFName().equals(d1.getDocFName())) {
 					changes.add("\n" + "Doctor Firstname, " + op+beforeUpdate.getDocFName()+op + " Changed To " + op +d1.getDocFName()+op +"\n");
 				}
-				if(!lastname.equals(d1.getDocLName())) {
+				if(!beforeUpdate.getDocLName().equals(d1.getDocLName())) {
 					changes.add("\n" + "Doctor Lastname, " + op+beforeUpdate.getDocLName()+op + " Changed To " + op +d1.getDocLName()+op +"\n");
 				}
-				if(!position.equals(d1.getDocPosition())) {
+				if(!beforeUpdate.getDocPosition().equals(d1.getDocPosition())) {
 					changes.add("\n" + "Doctor Position, " + op+beforeUpdate.getDocPosition()+op + " Changed To " + op +d1.getDocPosition()+op +"\n");
 				}
-				if(!fee.equals(d1.getDocFee())) {
+				if(!beforeUpdate.getDocFee().equals(d1.getDocFee())) {
 					changes.add("\n" + "Doctor Fee, " + op+beforeUpdate.getDocFee()+op + " Changed To " + op +d1.getDocFee()+op +"\n");
 				}
-				if(mobi != d1.getMobileNo()) {
+				if(beforeUpdate.getMobileNo() != d1.getMobileNo()) {
 					changes.add("\n" + "Doctor Mobile No, " + op+beforeUpdate.getMobileNo()+op + " Changed To " + op +d1.getMobileNo()+op +"\n");
 				}
-				if(!add.equals(d1.getDocAddress())) {
+				if(!beforeUpdate.getDocAddress().equals(d1.getDocAddress())) {
 					changes.add("\n" + "Doctor Address, " + op+beforeUpdate.getDocAddress()+op + " Changed To " + op +d1.getDocAddress()+op +"\n");
 				}
-				if(hosID != d1.getHosID()) {
+				if(beforeUpdate.getHosID() != d1.getHosID()) {
 					changes.add("\n" + "Doctor Hospital ID, " + op+beforeUpdate.getHosID()+op + " Changed To " + op +d1.getHosID()+op +"\n");
 				}
 				
