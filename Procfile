@@ -1,0 +1,1 @@
+web: java -cp target/classes:target/dependency/* com.PAF_2020.com.HealthCare.heroku.Main
