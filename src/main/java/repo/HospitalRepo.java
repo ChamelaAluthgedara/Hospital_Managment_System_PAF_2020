@@ -1,7 +1,9 @@
 package repo;
 import java.util.ArrayList;
 import java.util.List;
+
 import models.Hospital;
+
 import java.sql.*;
 
 public class HospitalRepo {
@@ -10,7 +12,7 @@ public class HospitalRepo {
 	
 	public HospitalRepo() {
 	
-		String url = "jdbc:mysql://localhost:3306/paf_2020";
+		String url = "jdbc:mysql://localhost:3306/paf_2020?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String userName = "root";
 		String password = "";
 		

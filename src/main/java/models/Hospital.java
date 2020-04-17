@@ -6,11 +6,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Hospital {
 	
-	public int hospitalId;
-	public String hospitalName;
-	public String address;
-	public int contNum;
-	public double charge;
+	private int hospitalId;
+	private String hospitalName;
+	private String address;
+	private int contNum;
+	private double charge;
 
 	//Setters
 	public void setId(int hosId) {
