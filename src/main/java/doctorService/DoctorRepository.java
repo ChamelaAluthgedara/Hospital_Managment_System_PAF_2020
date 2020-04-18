@@ -5,6 +5,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import doctorModel.Doctor;
+
 public class DoctorRepository 
 {
 
@@ -99,28 +101,46 @@ public class DoctorRepository
 
 
 	// create new doctor instance
-	public boolean Create(Doctor d1) {
+	public String Create(Doctor d1) {
 		String sql = "insert into Doctor values (?,?,?,?,?,?,?,?)";
+		String isHosAvl = "select hospitalId from hospitals where hospitalId="+d1.getHosID();
+
 		try
 		{
-			PreparedStatement st = con.prepareStatement(sql);
-			st.setInt(1, d1.getDocID());
-			st.setString(2, d1.getDocFName());
-			st.setString(3, d1.getDocLName());
-			st.setString(4, d1.getDocPosition());
-			st.setString(5, d1.getDocFee());
-			st.setInt(6, d1.getMobileNo());
-			st.setString(7, d1.getDocAddress());
-			st.setInt(8, d1.getHosID());
+			int hostIDAvl = 0;
+			Statement st1 = con.createStatement();
+			ResultSet rs = st1.executeQuery(isHosAvl);
+			if(rs.next()) {
+				System.out.println(rs.getInt(1));
+				hostIDAvl = rs.getInt(1);
+			}
+				
+			if(hostIDAvl > 0) {
+				
+				PreparedStatement st = con.prepareStatement(sql);
+				st.setInt(1, d1.getDocID());
+				st.setString(2, d1.getDocFName());
+				st.setString(3, d1.getDocLName());
+				st.setString(4, d1.getDocPosition());
+				st.setString(5, d1.getDocFee());
+				st.setInt(6, d1.getMobileNo());
+				st.setString(7, d1.getDocAddress());
+				st.setInt(8, d1.getHosID());
+				
+				st.executeUpdate();
+				return "true";
+			}
+			else
+			{
+				return "InvalidhosID";
+			}
 			
-			st.executeUpdate();
 			
-			return true;
 		}
 		catch(Exception e)
 		{
 			System.out.println(e);
-			return false;
+			return "false";
 		}
 		
 		
@@ -129,29 +149,44 @@ public class DoctorRepository
 	
 	
 	// update current doctor details in db
-	public boolean Update(Doctor d1) {
+	public String Update(Doctor d1) {
 		String sql = "update doctor set DocFName=?, DocLName=?, DocPosition=?, DocFee=?, MobileNo=?, DocAddress=?, HosID=? where DocID=?";
+		String isHosAvl = "select hospitalId from hospitals where hospitalId="+d1.getHosID();
+
 		try
 		{
-			PreparedStatement st = con.prepareStatement(sql);
-			
-			st.setString(1, d1.getDocFName());
-			st.setString(2, d1.getDocLName());
-			st.setString(3, d1.getDocPosition());
-			st.setString(4, d1.getDocFee());
-			st.setInt(5, d1.getMobileNo());
-			st.setString(6, d1.getDocAddress());
-			st.setInt(7, d1.getHosID());
-			st.setInt(8, d1.getDocID());
-			
-			st.executeUpdate();
-			return true;
+			int hostIDAvl = 0;
+			Statement st1 = con.createStatement();
+			ResultSet rs = st1.executeQuery(isHosAvl);
+			if(rs.next()) {
+				System.out.println(rs.getInt(1));
+				hostIDAvl = rs.getInt(1);
+			}
+			if(hostIDAvl > 0) {
+				PreparedStatement st = con.prepareStatement(sql);
+				
+				st.setString(1, d1.getDocFName());
+				st.setString(2, d1.getDocLName());
+				st.setString(3, d1.getDocPosition());
+				st.setString(4, d1.getDocFee());
+				st.setInt(5, d1.getMobileNo());
+				st.setString(6, d1.getDocAddress());
+				st.setInt(7, d1.getHosID());
+				st.setInt(8, d1.getDocID());
+				
+				st.executeUpdate();
+				return "true";
+			}
+			else
+			{
+				return "InvalidhosID";
+			}
 			
 		}
 		catch(Exception e)
 		{
 			System.out.println(e);
-			return false;
+			return "false";
 		}
 		
 	}
