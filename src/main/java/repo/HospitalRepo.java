@@ -22,9 +22,11 @@ public class HospitalRepo {
 			//Class.forName("com.mysql.jdbc.Driver");
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(url, userName, password);
+			System.out.println("DB Connected..");
 		}
 		catch(Exception e) {
 			System.out.println(e);
+			System.out.println("Faild DB..");
 		}
 	}
 		
@@ -34,7 +36,7 @@ public class HospitalRepo {
 		
 		List<Hospital> hosList = new ArrayList<Hospital>();
 		
-		String QUERY = "SELECT * FROM Hospitals;"; 
+		String QUERY = "SELECT * FROM Hospitals"; 
 		
 		try {
 			Statement st = conn.createStatement();
@@ -43,13 +45,14 @@ public class HospitalRepo {
 			while( rs.next() ) {
 				Hospital hos = new Hospital();
 				
-				hos.setId( rs.getInt(1) );
-				hos.setName( rs.getString(2) );
+				hos.setHospitalId( rs.getInt(1) );
+				hos.setHospitalName( rs.getString(2) );
 				hos.setAddress( rs.getString(3) );
-				hos.setContactNum( rs.getInt(4) );
+				hos.setContNum( rs.getInt(4) );
 				hos.setCharge( rs.getDouble(5) );
 				
 				hosList.add(hos); // Adding hospital objects
+				
 			}
 		}
 		catch(Exception e) {
@@ -76,10 +79,10 @@ public class HospitalRepo {
 			if( rs.next() ) {
 				
 				
-				hospital.setId( rs.getInt(1) );
-				hospital.setName( rs.getString(2) );
+				hospital.setHospitalId( rs.getInt(1) );
+				hospital.setHospitalName( rs.getString(2) );
 				hospital.setAddress( rs.getString(3) );
-				hospital.setContactNum( rs.getInt(4) );
+				hospital.setContNum( rs.getInt(4) );
 				hospital.setCharge( rs.getDouble(5) );
 				
 			}
@@ -94,7 +97,7 @@ public class HospitalRepo {
 	
 	public void addHospital(Hospital hospital) {
 		
-		String QUERY = "INSERT INTO Hospitals() VALUES(?,?,?,?,?)";
+		String QUERY = "INSERT INTO Hospitals VALUES(?,?,?,?,?)";
 		
 		
 		try {
@@ -103,8 +106,8 @@ public class HospitalRepo {
 			st.setInt(1, hospital.getHospitalId() );
 			st.setString(2, hospital.getHospitalName());
 			st.setString(3,  hospital.getAddress());
-			st.setInt(4, hospital.getContactNum());
-			st.setDouble(5,  hospital.getCharges() );
+			st.setInt(4, hospital.getContNum());
+			st.setDouble(5,  hospital.getCharge() );
 			
 			st.executeUpdate();
 			
@@ -120,15 +123,17 @@ public class HospitalRepo {
 	
 	public void updateHospital(Hospital hospital) {
 		
-		String QUERY = "UPDATE Hospitals SET hosId = ?,hosName = ?, address = ?, contNum = ?, hosCharges = ?";
+		String QUERY = "UPDATE Hospitals SET hosName = ?, address = ?, contNum = ?, hosCharges = ? where  hosId = ?";
 		
 		try {
 			PreparedStatement st = conn.prepareStatement(QUERY);
-			st.setInt(1, hospital.getHospitalId());
-			st.setString(2, hospital.getHospitalName());
-			st.setString(3, hospital.getAddress());
-			st.setInt(4, hospital.getContactNum());
-			st.setDouble(5, hospital.getCharges());
+			
+			st.setString(1, hospital.getHospitalName());
+			st.setString(2, hospital.getAddress());
+			st.setInt(3, hospital.getContNum());
+			st.setDouble(4, hospital.getCharge());
+			
+			st.setInt(5, hospital.getHospitalId());
 			st.executeUpdate();
 			
 		}
@@ -137,17 +142,17 @@ public class HospitalRepo {
 		}
 	}
 	
-	
-	public void removeHospital(int id) {
-		String QUERY = "DELETE FROM Hospitals WHERE id = ?";
+	public boolean removeHospital(int id) {
+		String QUERY = "DELETE FROM Hospitals WHERE hosId =?";
 		try {
 			PreparedStatement st = conn.prepareStatement(QUERY);
 			st.setInt(1, id);
 			st.executeUpdate();
-			
+			return true;
 		}
 		catch(Exception e) {
 			System.out.println(e);
+			return false;
 		}
 		
 		

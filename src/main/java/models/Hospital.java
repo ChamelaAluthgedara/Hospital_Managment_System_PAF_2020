@@ -2,7 +2,6 @@ package models;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 @XmlRootElement
 public class Hospital {
 	
@@ -11,41 +10,44 @@ public class Hospital {
 	private String address;
 	private int contNum;
 	private double charge;
-
-	//Setters
-	public void setId(int hosId) {
-		this.hospitalId = hosId;
+	
+	public int getHospitalId() {
+		return hospitalId;
 	}
-	public void setName(String hosName) {
-		this.hospitalName = hosName;
+	public void setHospitalId(int hospitalId) {
+		this.hospitalId = hospitalId;
+	}
+	public String getHospitalName() {
+		return hospitalName;
+	}
+	public void setHospitalName(String hospitalName) {
+		this.hospitalName = hospitalName;
+	}
+	public String getAddress() {
+		return address;
 	}
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public void setContactNum(int contNum) {
+	public int getContNum() {
+		return contNum;
+	}
+	public void setContNum(int contNum) {
 		this.contNum = contNum;
+	}
+	public double getCharge() {
+		return charge;
 	}
 	public void setCharge(double charge) {
 		this.charge = charge;
 	}
+	@Override
+	public String toString() {
+		return "Hospital [hospitalId=" + hospitalId + ", hospitalName=" + hospitalName + ", address=" + address
+				+ ", contNum=" + contNum + ", charge=" + charge + "]";
+	}
 
 	
-	// Getters
-	public int getHospitalId() {
-		return this.hospitalId;
-	}
-	public String getHospitalName() {
-		return this.hospitalName;
-	}
-	public String getAddress() {
-		return this.address;
-	}
-	public int getContactNum() {
-		return this.contNum;
-	}
-	public double getCharges() {
-		return this.charge;
-	}
 	
 	
 }

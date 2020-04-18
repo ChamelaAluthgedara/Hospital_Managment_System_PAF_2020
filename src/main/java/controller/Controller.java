@@ -1,8 +1,8 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -24,7 +24,8 @@ public class Controller {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Hospital> getAllHospitals() {
-    	
+    	System.out.println("GET called...");
+    	System.out.println(repo.getAllHospitals().toString());
         return repo.getAllHospitals();
     	
       }
@@ -41,13 +42,16 @@ public class Controller {
     
     @POST
     @Path("add")
+    @Produces(MediaType.APPLICATION_JSON)
     public void addHospital(Hospital hos) {
     	System.out.println(hos);
+    	System.out.println(hos.toString());
     	repo.addHospital(hos);
     }
     
     @PUT
     @Path("update")
+    @Consumes(MediaType.APPLICATION_JSON)
     public void updateHospital(Hospital hospital) {
     	repo.updateHospital(hospital);
     }
@@ -55,8 +59,16 @@ public class Controller {
     
     @DELETE
     @Path("remove/{id}")
-    public void removeHospital(@PathParam("id") int id) {
-    	repo.removeHospital(id);
+    @Produces(MediaType.APPLICATION_JSON)
+    public String removeHospital(@PathParam("id") int id) {
+    	if(repo.removeHospital(id))
+    	{
+    		return "Delete Complete";
+    	}
+    	else
+    	{
+    		return "Task Fail.";
+    	}
     }
     
     
