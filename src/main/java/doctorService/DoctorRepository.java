@@ -52,7 +52,7 @@ public class DoctorRepository
 				d.setDocFName(rs.getString(2));
 				d.setDocLName(rs.getString(3));
 				d.setDocPosition(rs.getString(4));
-				d.setDocFee(rs.getString(5));
+				d.setDocFee(rs.getDouble(5));
 				d.setMobileNo(rs.getInt(6));
 				d.setDocAddress(rs.getString(7));
 				d.setHosID(rs.getInt(8));
@@ -85,7 +85,7 @@ public class DoctorRepository
 				d.setDocFName(rs.getString(2));
 				d.setDocLName(rs.getString(3));
 				d.setDocPosition(rs.getString(4));
-				d.setDocFee(rs.getString(5));
+				d.setDocFee(rs.getDouble(5));
 				d.setMobileNo(rs.getInt(6));
 				d.setDocAddress(rs.getString(7));
 				
@@ -122,7 +122,7 @@ public class DoctorRepository
 				st.setString(2, d1.getDocFName());
 				st.setString(3, d1.getDocLName());
 				st.setString(4, d1.getDocPosition());
-				st.setString(5, d1.getDocFee());
+				st.setDouble(5, d1.getDocFee());
 				st.setInt(6, d1.getMobileNo());
 				st.setString(7, d1.getDocAddress());
 				st.setInt(8, d1.getHosID());
@@ -168,7 +168,7 @@ public class DoctorRepository
 				st.setString(1, d1.getDocFName());
 				st.setString(2, d1.getDocLName());
 				st.setString(3, d1.getDocPosition());
-				st.setString(4, d1.getDocFee());
+				st.setDouble(4, d1.getDocFee());
 				st.setInt(5, d1.getMobileNo());
 				st.setString(6, d1.getDocAddress());
 				st.setInt(7, d1.getHosID());
@@ -215,8 +215,5 @@ public class DoctorRepository
 		
 	}
 
-
-	
-	
 	
 }

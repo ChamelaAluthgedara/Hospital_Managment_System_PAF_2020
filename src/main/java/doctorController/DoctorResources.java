@@ -37,9 +37,14 @@ public class DoctorResources {
 	@GET
 	@Path ("doctor/{id}")
 	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-	public Doctor getDoctor(@PathParam("id")int id) 
+	public String getDoctor(@PathParam("id")int id) 
 	{
-		return repo.getDoctor(id);	
+		if(repo.getDoctor(id).getDocID() == 0) {
+			return "Invalid DoctorID.";	
+		}else {
+			return repo.getDoctor(id).toString();	
+		}
+		
 	}
 	
 	
@@ -74,7 +79,7 @@ public class DoctorResources {
 	public String updateDoctor(Doctor d1)
 	{
 		 beforeUpdate = repo.getDoctor(d1.getDocID());
-		if(d1.getDocFName().equals(null) || d1.getDocLName().equals(null) || d1.getDocAddress().equals(null) || d1.getDocFee().equals(null) || d1.getDocID() == 0|| d1.getDocPosition().equals(null) || d1.getMobileNo() == 0) {
+		if(d1.getDocFName().equals(null) || d1.getDocLName().equals(null) || d1.getDocAddress().equals(null) || d1.getDocFee() == 0 || d1.getDocID() == 0|| d1.getDocPosition().equals(null) || d1.getMobileNo() == 0) {
 			return "Error. Values cannot be null.";
 		}
 		else
@@ -166,7 +171,7 @@ public class DoctorResources {
 		if(!beforeUpdate.getDocPosition().equals(d1.getDocPosition())) {
 			changes.add("\n" + "Doctor Position, " + op+beforeUpdate.getDocPosition()+op + " Changed To " + op +d1.getDocPosition()+op +"\n");
 		}
-		if(!beforeUpdate.getDocFee().equals(d1.getDocFee())) {
+		if(beforeUpdate.getDocFee() != d1.getDocFee()) {
 			changes.add("\n" + "Doctor Fee, Rs." + op+beforeUpdate.getDocFee()+op + " Changed To " + "Rs."+ op +d1.getDocFee()+op +"\n");
 		}
 		if(beforeUpdate.getMobileNo() != d1.getMobileNo()) {
