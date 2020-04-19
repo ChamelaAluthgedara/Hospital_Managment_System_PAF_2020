@@ -36,7 +36,7 @@ public class DoctorResources {
 	
 	@GET
 	@Path ("doctor/{id}")
-	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON,MediaType.WILDCARD})
+	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
 	public String getDoctor(@PathParam("id")int id) 
 	{
 		if(repo.getDoctor(id).getDocID() == 0) {

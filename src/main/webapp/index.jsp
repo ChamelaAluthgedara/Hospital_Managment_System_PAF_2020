@@ -7,7 +7,7 @@
     
 	<form action="http://localhost:8081/HospitalManagementPAF2020/webapi/doctors/doctor/1">
 	  <label>DoctorID:</label>
-	  <input type="text" id="fname"value="John"><br><br>
+	  <input type="number" id="fname"value="John"><br><br>
 	  <input type="submit" value="Submit">
 	</form>
 
