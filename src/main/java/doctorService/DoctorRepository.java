@@ -16,7 +16,7 @@ public class DoctorRepository
 	
 	public DoctorRepository()
 	{
-		String url = "jdbc:mysql://localhost:3306/pafHospitalManagementDB";
+		String url = "jdbc:mysql://localhost:3306/pafHospitalManagementDB2020";
 		String username = "root";
 		String password = "";
 		
