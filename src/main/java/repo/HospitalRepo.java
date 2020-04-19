@@ -14,13 +14,13 @@ public class HospitalRepo {
 	
 	public HospitalRepo() {
 	
-		String url = "jdbc:mysql://localhost:3306/paf_2020?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String url = "jdbc:mysql://localhost:3306/pafhospitalmanagementdb2020?autoReconnect=true&useSSL=false";
 		String userName = "root";
 		String password = "";
 		
 		try {
-			//Class.forName("com.mysql.jdbc.Driver");
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
+			
 			conn = DriverManager.getConnection(url, userName, password);
 			System.out.println("DB Connected..");
 		}
@@ -70,7 +70,7 @@ public class HospitalRepo {
 	public Hospital getHospital(int id){ // Returns a specific object
 		Hospital hospital = new Hospital();
 	
-		String QUERY = "SELECT * FROM Hospitals WHERE hosId = " + id;
+		String QUERY = "SELECT * FROM Hospitals WHERE hostId = " + id;
 		
 		try {
 			Statement st = conn.createStatement();
@@ -95,7 +95,8 @@ public class HospitalRepo {
 	
 	
 	
-	public void addHospital(Hospital hospital) {
+	public boolean addHospital(Hospital hospital) {
+		boolean retVal = false;
 		
 		String QUERY = "INSERT INTO Hospitals VALUES(?,?,?,?,?)";
 		
@@ -110,6 +111,7 @@ public class HospitalRepo {
 			st.setDouble(5,  hospital.getCharge() );
 			
 			st.executeUpdate();
+			retVal = true;
 			
 			
 			
@@ -117,13 +119,14 @@ public class HospitalRepo {
 		catch(Exception e) {
 			System.out.println(e);
 		}
+		return retVal;
 	}
 	
 	
 	
-	public void updateHospital(Hospital hospital) {
-		
-		String QUERY = "UPDATE Hospitals SET hosName = ?, address = ?, contNum = ?, hosCharges = ? where  hosId = ?";
+	public boolean updateHospital(Hospital hospital) {
+		boolean retVal = false;
+		String QUERY = "UPDATE Hospitals SET hosName = ?, address = ?, contNum = ?, hosCharges = ? where  hostId = ?";
 		
 		try {
 			PreparedStatement st = conn.prepareStatement(QUERY);
@@ -135,15 +138,18 @@ public class HospitalRepo {
 			
 			st.setInt(5, hospital.getHospitalId());
 			st.executeUpdate();
+			retVal = true;
 			
 		}
 		catch(Exception e) {
 			System.out.println(e);
 		}
+		
+		return retVal;
 	}
 	
 	public boolean removeHospital(int id) {
-		String QUERY = "DELETE FROM Hospitals WHERE hosId =?";
+		String QUERY = "DELETE FROM Hospitals WHERE hostId =?";
 		try {
 			PreparedStatement st = conn.prepareStatement(QUERY);
 			st.setInt(1, id);

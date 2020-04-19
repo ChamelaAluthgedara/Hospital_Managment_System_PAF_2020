@@ -22,9 +22,9 @@ public class Controller {
 	HospitalRepo repo = new HospitalRepo();
 	
     @GET
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Hospital> getAllHospitals() {
-    	System.out.println("GET called...");
+    
     	System.out.println(repo.getAllHospitals().toString());
         return repo.getAllHospitals();
     	
@@ -34,7 +34,7 @@ public class Controller {
     
     @GET
     @Path("get/{id}")
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Hospital getHospital( @PathParam("id") int id ) {
     	return repo.getHospital(id);
     }
@@ -42,32 +42,41 @@ public class Controller {
     
     @POST
     @Path("add")
-    @Produces(MediaType.APPLICATION_JSON)
-    public void addHospital(Hospital hos) {
-    	System.out.println(hos);
-    	System.out.println(hos.toString());
-    	repo.addHospital(hos);
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public String addHospital(Hospital hos) {
+    	
+    	if( repo.addHospital(hos) ) {
+    		return "The hospital was added.";
+    	}
+    	else {
+    		return "The hospital was added.";
+    	}
     }
     
     @PUT
     @Path("update")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void updateHospital(Hospital hospital) {
-    	repo.updateHospital(hospital);
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public String updateHospital(Hospital hospital) {
+    	if( repo.updateHospital(hospital) ) {
+    		return "Record was updated successfully.";
+    	}
+    	else {
+    		return "Record was not updated successfully.";
+    	}
     }
     
     
     @DELETE
     @Path("remove/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public String removeHospital(@PathParam("id") int id) {
     	if(repo.removeHospital(id))
     	{
-    		return "Delete Complete";
+    		return "Record was Deleted";
     	}
     	else
     	{
-    		return "Task Fail.";
+    		return "Record was not Deleted";
     	}
     }
     
