@@ -14,7 +14,7 @@ public class DBconnection {
 						Class.forName("com.mysql.cj.jdbc.Driver");
 						
 						//DB Connection
-						con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/patient", "root" , "pasindupasi1998");
+						con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/pafhospitalmanagementdb2020", "root" , "");
 					}
 					catch (Exception e) {
 						// TODO: handle exception
