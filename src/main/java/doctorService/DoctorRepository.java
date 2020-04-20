@@ -103,7 +103,7 @@ public class DoctorRepository
 	// create new doctor instance
 	public String Create(Doctor d1) {
 		String sql = "insert into Doctor values (?,?,?,?,?,?,?,?)";
-		String isHosAvl = "select hospitalId from hospitals where hospitalId="+d1.getHosID();
+		String isHosAvl = "select hostId from hospitals where hostId="+d1.getHosID();
 
 		try
 		{
@@ -151,7 +151,7 @@ public class DoctorRepository
 	// update current doctor details in db
 	public String Update(Doctor d1) {
 		String sql = "update doctor set DocFName=?, DocLName=?, DocPosition=?, DocFee=?, MobileNo=?, DocAddress=?, HosID=? where DocID=?";
-		String isHosAvl = "select hospitalId from hospitals where hospitalId="+d1.getHosID();
+		String isHosAvl = "select hostId from hospitals where hostId="+d1.getHosID();
 
 		try
 		{
