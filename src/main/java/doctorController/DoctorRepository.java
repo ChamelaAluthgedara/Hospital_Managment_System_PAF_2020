@@ -1,11 +1,9 @@
-package doctorService;
+package doctorController;
 
 import java.sql.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import doctorModel.Doctor;
 
 public class DoctorRepository 
 {

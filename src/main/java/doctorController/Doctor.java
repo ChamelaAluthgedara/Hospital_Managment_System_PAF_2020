@@ -1,4 +1,4 @@
-package doctorModel;
+package doctorController;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

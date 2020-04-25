@@ -13,9 +13,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import doctorModel.Doctor;
-import doctorService.DoctorRepository;
-
 
 @Path("doctors")
 public class DoctorResources {
@@ -95,7 +92,7 @@ public class DoctorResources {
 				if(repo.Create(d1).equals("true"))
 				{
 					
-					return "Cannot update.Entered DocID not found in database. \nNew doctor deatils row created. \nInfo = " + d1;
+					return "Cannot update.Entered DocID not found in database. \nNew doctor deatils row created. \nInfo : " + d1;
 				}
 				if(repo.Create(d1).equals("InvalidhosID"))
 				{
@@ -176,7 +173,7 @@ public class DoctorResources {
 			changes.add("\n" + "Doctor Position,\n " + op+beforeUpdate.getDocPosition()+op + " Changed To " + op +d1.getDocPosition()+op +"\n");
 		}
 		if(beforeUpdate.getDocFee() != d1.getDocFee()) {
-			changes.add("\n" + "Doctor Fee\n, Rs." + op+beforeUpdate.getDocFee()+op + " Changed To " + "Rs."+ op +d1.getDocFee()+op +"\n");
+			changes.add("\n" + "Doctor Fee,\n Rs." + op+beforeUpdate.getDocFee()+op + " Changed To " + "Rs."+ op +d1.getDocFee()+op +"\n");
 		}
 		if(beforeUpdate.getMobileNo() != d1.getMobileNo()) {
 			changes.add("\n" + "Doctor Mobile No,\n " + op+beforeUpdate.getMobileNo()+op + " Changed To " + op +d1.getMobileNo()+op +"\n");
