@@ -63,8 +63,6 @@ public class DoctorAPIController extends HttpServlet {
 		
 		d.Create(doc);
 
-
-		
 	}
 
 	/**
@@ -74,11 +72,10 @@ public class DoctorAPIController extends HttpServlet {
 			throws ServletException, IOException {
 
 		DoctorService d = new DoctorService();
-		
 		List<Object> doc = new ArrayList<>();
 		
 		Map<String, String> docUpdateDetails = getParasMap(request);
-//		
+		
 		doc.add(Integer.parseInt(docUpdateDetails.get("docID").toString()));
 		doc.add(docUpdateDetails.get("docFname").toString());
 		doc.add(docUpdateDetails.get("docLname").toString());
@@ -94,16 +91,9 @@ public class DoctorAPIController extends HttpServlet {
 		
 	}
 
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
+			throws ServletException, IOException {}
 	
-		}
-	
-
 	private static Map<String, String> getParasMap(HttpServletRequest request) {
 		Map<String, String> map = new HashMap<String, String>();
 		try {

@@ -91,9 +91,10 @@ $(document).ready(function(){
      
      function getSingleDoctor(id){
          $.ajax({
-             url: 'http://localhost:8081/HospitalManagementPAF2020/webapi/doctors/doctor/' + id,
+             url: 'doctorAPI',
              method: 'get',
              dataType: 'json',
+             data: id,
              success: function(data) {
                  $($("#newForm")[0].docID).val(data.docID);
                  $($("#newForm")[0].docFname).val(data.docFName);
@@ -155,7 +156,18 @@ $(document).ready(function(){
         
      });
      
-    
+     function deleteDoctorDetails(id){
+     	console.log(id);
+         $.ajax({
+             url: 'http://localhost:8081/HospitalManagementPAF2020/webapi/doctors/doctor/'+ id,
+             method: 'DELETE',
+             dataType: 'json',
+             success: function(data) {
+                 console.log(data);
+                 getRegisteredDoctors();
+             }
+         });
+     }
 });
   
 
