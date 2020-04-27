@@ -1,133 +1,136 @@
-$(document).ready(function()
-	{
-	 $("#alertSuccess").hide();
-	 $("#alertError").hide();
-	});
+$(document).ready(function(){
+    
+    getTutorials();
+    
+    $("#newTutBtn").on("click", function(e){
+        $("#newForm").toggle();
+    });
+    
+    function getTutorials(){
+        $('#tutorialsBody').html('');
+        $.ajax({
+            url: 'http://localhost:3000/api/tutorials',
+            method: 'get',
+            dataType: 'json',
+            data: {
+                test: 'test data'
+            },
+            success: function(data) {
+                $(data).each(function(i, tutorial){
+                    $('#tutorialsBody').append($("<tr>")
+                                            .append($("<td>").append(tutorial.tutorialNumber))
+                                            .append($("<td>").append(tutorial.title))
+                                            .append($("<td>").append(tutorial.author))
+                                            .append($("<td>").append(tutorial.type))
+                                            .append($("<td>").append(tutorial._id))
+                                            .append($("<td>").append(`
+                                                <i class="far fa-edit editTut" data-tutid="`+tutorial._id+`"></i> 
+                                                <i class="fas fa-trash deleteTut" data-tutid="`+tutorial._id+`"></i>
+                                            `)));
+                    });
+                loadButtons();
+                }
+        });
+    }
+    
+    function getOneTutorial(id){
+        $.ajax({
+            url: 'http://localhost:3000/api/tutorials/' + id,
+            method: 'get',
+            dataType: 'json',
+            success: function(data) {
+                $($("#updateForm")[0].tutId).val(data._id);
+                $($("#updateForm")[0].updateNum).val(data.tutorialNumber);
+                $($("#updateForm")[0].updateTitle).val(data.title);
+                $($("#updateForm")[0].updateAuthor).val(data.author);
+                $($("#updateForm")[0].updateType).val(data.type);
+                $("#updateForm").show();
+            }
+        });
+    }
+    
+    $("#submitTutorial").on("click", function(e) {
+       let data = {
+           tutorialNumber: $($("#newForm")[0].tutNum).val(),
+           title: $($("#newForm")[0].title).val(),
+           author: $($("#newForm")[0].author).val(),
+           type: $($("#newForm")[0].type).val()
+       } 
+       
+        postTutorial(data);
+        $("#newForm").trigger("reset");
+        $("#newForm").toggle();
+        e.preventDefault();
+       
+    });
+    
+    
+    function postTutorial(data) {
+        $.ajax({
+            url: 'http://localhost:3000/api/tutorials',
+            method: 'POST',
+            dataType: 'json',
+            data: data,
+            success: function(data) {
+                console.log(data);
+                getTutorials();
+            }
+        });
+    }
+    
+    function loadButtons() {
+        $(".editTut").click(function(e){
+            getOneTutorial($($(this)[0]).data("tutid"));
+            e.preventDefault();
+        });
+        
+        $(".deleteTut").click(function(e){
+            deleteTutorial($($(this)[0]).data("tutid"));
+            e.preventDefault();
+        })
+    }
+    
+    function putTutorial(id, data){
+        $.ajax({
+            url: 'http://localhost:3000/api/tutorials/' + id,
+            method: 'PUT',
+            dataType: 'json',
+            data: data,
+            success: function(data) {
+                console.log(data);
+                getTutorials();
+            }
+        });
+    }
+    
+    $("#updateTutorial").on("click", function(e) {
+       let data = {
+           tutorialNumber: $($("#updateForm")[0].updateNum).val(),
+           title: $($("#updateForm")[0].updateTitle).val(),
+           author: $($("#updateForm")[0].updateAuthor).val(),
+           type: $($("#updateForm")[0].updateType).val()
+       } 
+       
+        putTutorial($($("#updateForm")[0].tutId).val(), data);
+        $("#updateForm").trigger("reset");
+        $("#updateForm").toggle();
+        e.preventDefault();
+       
+    });
+    
 
-// SAVE ============================================
-$(document).on("click", "#btnSave", function(event)
-{
-	// Clear status msges-------------
-	 $("#alertSuccess").text("");
-	 $("#alertSuccess").hide();
-	 $("#alertError").text("");
-	 $("#alertError").hide();
-	 
-	// Form validation----------------
-	var status = validateItemForm();
-	
-	// If not valid-------------------
-	if (status != true)
-	 {
-	 $("#alertError").text(status);
-	 $("#alertError").show();
-	 
-	 return;
- }
-	
-// If valid----------------------
-	var student = getStudentCard($("#txtName").val().trim(),
-	 $('input[name="rdoGender"]:checked').val(),
-	 $("#ddlYear").val());
-	 $("#colStudents").append(student);
-	
-	 $("#alertSuccess").text("Saved successfully.");
-	 $("#alertSuccess").show();
-	
-	 $("#formDoctor")[0].reset();
-	});
-
-// REMOVE==========================================
-	$(document).on("click", ".remove", function(event)
-	{
-	 $(this).closest(".doctor").remove();
-	
-	 $("#alertSuccess").text("Removed successfully.");
-	 $("#alertSuccess").show();
-	}); 
-
-
-
-// CLIENT-MODEL=================================================================
-function validateItemForm()
-	{
-	
-	if ($("#docID").val().trim() == "")
-	 {
-	 return "Insert Doctor ID.";
-	 }
-	if ($("#docFname").val().trim() == "")
-	 {
-	 return "Insert Doctor First Name.";
-	 }
-	if ($("#docLname").val().trim() == "")
-	 {
-	 return "Insert Doctor Last Name.";
-	 }
-	if ($("#docPosition").val().trim() == "")
-	 {
-	 return "Insert Doctor Position.";
-	 }
-	if ($("#docFee").val().trim() == "")
-	 {
-	 return "Insert Doctor Fee.";
-	 }
-	if ($("#docAddress").val().trim() == "")
-	 {
-	 return "Insert Doctor Address.";
-	 }
-	if ($("#docMobile").val().trim() == "")
-	 {
-	 return "Insert Doctor Mobile Number.";
-	 }
-	if ($("#docHospitalID").val().trim() == "")
-	 {
-	 return "Insert Hospital ID.";
-	 }
-	
-	// YEAR
-	if ($("#ddlYear").val() == "0")
-	 {
-	 return "Select year.";
-	 }
-	return true;
-}
-function getStudentCard(name, gender, year)
-{
-	var title = (gender == "Male") ? "Mr." : "Ms.";
-	var yearNumber = "";
-		switch (year) {
-			case "1":
-			 yearNumber = "1st";
-			 break;
-			case "2":
-			 yearNumber = "2nd";
-			 break;
-			case "3":
-			 yearNumber = "3rd";
-			 break;
-			case "4":
-			 yearNumber = "4th";
-			 break;
-		 }
-		
-	var student = "";
-	
-	 student += "<div class=\"doctor card bg-light m-2\"style=\"max-width: 10rem; float: left;\">";
-	 student += "<div class=\"card-body\">";
-	 student += title + " " + name + ",";
-	 student += "<br>";
-	 student += yearNumber + " year";
-	 student += "</div>";
-	 student += "<input type=\"button\" value=\"Remove\"class=\"btn btn-danger remove\">";
-	 student += "</div>";
-	return student;
-}
-
-
-
-
-
-
-
-
+    
+    function deleteTutorial(id){
+        $.ajax({
+            url: 'http://localhost:3000/api/tutorials/' + id,
+            method: 'DELETE',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                getTutorials();
+            }
+        });
+    }
+    
+});
+  

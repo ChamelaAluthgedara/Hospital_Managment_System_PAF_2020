@@ -5,14 +5,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoctorRepository 
+public class DoctorService 
 {
 
 	List<Doctor> doctors;
 	
 	Connection con = null;
 	
-	public DoctorRepository()
+	public DoctorService()
 	{
 		String url = "jdbc:mysql://localhost:3306/pafHospitalManagementDB2020";
 		String username = "root";
@@ -99,7 +99,21 @@ public class DoctorRepository
 
 
 	// create new doctor instance
-	public String Create(Doctor d1) {
+	public boolean Create(List<Object> docList) {
+		
+		
+		Doctor d1 = new Doctor();
+		
+		d1.setDocID((int) docList.get(0));
+		d1.setDocFName((String) docList.get(1));
+		d1.setDocLName((String) docList.get(2));
+		d1.setDocPosition((String) docList.get(3));
+		d1.setDocFee((Double) docList.get(4));
+		d1.setMobileNo((int) docList.get(5));
+		d1.setDocAddress((String) docList.get(6));
+		d1.setHosID((int) docList.get(7));
+		
+		
 		String sql = "insert into Doctor values (?,?,?,?,?,?,?,?)";
 		String isHosAvl = "select hostId from hospitals where hostId="+d1.getHosID();
 
@@ -126,20 +140,26 @@ public class DoctorRepository
 				st.setInt(8, d1.getHosID());
 				
 				st.executeUpdate();
-				return "true";
+				//return "true";
 			}
-			else
-			{
-				return "InvalidhosID";
-			}
+			
+			
+//			else
+//			{
+//				
+//				//return "InvalidhosID";
+//			}
 			
 			
 		}
 		catch(Exception e)
 		{
 			System.out.println(e);
-			return "false";
+			//return "false";
+			
 		}
+		return true;
+		//return d1;
 		
 		
 	}
@@ -147,7 +167,19 @@ public class DoctorRepository
 	
 	
 	// update current doctor details in db
-	public String Update(Doctor d1) {
+	public String Update(List<Object> docList) {
+		
+		
+		Doctor d1 = new Doctor();
+		
+		d1.setDocID((int) docList.get(0));
+		d1.setDocFName((String) docList.get(1));
+		d1.setDocLName((String) docList.get(2));
+		d1.setDocPosition((String) docList.get(3));
+		d1.setDocFee((Double) docList.get(4));
+		d1.setMobileNo((int) docList.get(5));
+		d1.setDocAddress((String) docList.get(6));
+		d1.setHosID((int) docList.get(7));
 		String sql = "update doctor set DocFName=?, DocLName=?, DocPosition=?, DocFee=?, MobileNo=?, DocAddress=?, HosID=? where DocID=?";
 		String isHosAvl = "select hostId from hospitals where hostId="+d1.getHosID();
 
@@ -191,7 +223,7 @@ public class DoctorRepository
 
 
 	// delete doctor details in db
-	public boolean kill(int id) {
+	public void kill(int id) {
 		
 		String sql = "delete from doctor where DocID=?";
 		try
@@ -201,15 +233,15 @@ public class DoctorRepository
 			st.setInt(1, id);
 			
 			st.executeUpdate();
-			return true;
+			//return true;
 			
 		}
 		catch(Exception e)
 		{
 			System.out.println(e);
-			return false;
+			//return false;
 		}
-		
+	
 		
 	}
 

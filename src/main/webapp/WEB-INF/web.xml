@@ -15,14 +15,15 @@
     <servlet-name>Jersey Web Application</servlet-name>
     <url-pattern>/webapi/*</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <description></description>
-    <display-name>DoctorAPI</display-name>
-    <servlet-name>DoctorAPI</servlet-name>
-    <servlet-class>doctorController.DoctorAPI</servlet-class>
+    <display-name>DoctorAPIController</display-name>
+    <servlet-name>DoctorAPIController</servlet-name>
+    <servlet-class>doctorController.DoctorAPIController</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>DoctorAPI</servlet-name>
-    <url-pattern>/DoctorAPI</url-pattern>
+    <servlet-name>DoctorAPIController</servlet-name>
+    <url-pattern>/DoctorAPIController</url-pattern>
   </servlet-mapping>
 </web-app>
