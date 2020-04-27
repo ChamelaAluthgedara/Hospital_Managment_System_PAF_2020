@@ -88,6 +88,73 @@ $(document).ready(function(){
              e.preventDefault();
          })
      }
+     
+     function getSingleDoctor(id){
+         $.ajax({
+             url: 'http://localhost:8081/HospitalManagementPAF2020/webapi/doctors/doctor/' + id,
+             method: 'get',
+             dataType: 'json',
+             success: function(data) {
+                 $($("#newForm")[0].docID).val(data.docID);
+                 $($("#newForm")[0].docFname).val(data.docFName);
+                 $($("#newForm")[0].docLname).val(data.docLName);
+                 $($("#newForm")[0].docPosition).val(data.docPosition);
+                 $($("#newForm")[0].docFee).val(data.docFee);
+                 $($("#newForm")[0].docAddress).val(data.docAddress);
+                 $($("#newForm")[0].mobileNo).val(data.mobileNo);
+                 $($("#newForm")[0].hosID).val(data.hosID);
+                 $("#updateForm").show();
+                 //$("#newForm").hide();
+             }
+         });
+     }
+     
+    
+     
+     function updateDoctorDetails(id, data){
+     	console.log(data);
+     	 //+ id
+         $.ajax({
+             url: 'doctorAPI',
+             method: 'PUT',
+             dataType: 'json',
+             data: data,
+             success: function( status )
+             {
+             	 onItemSaveComplete("test", status);
+             	 getRegisteredDoctors();
+             }
+         });
+        
+     }
+     
+     function onItemSaveComplete(response, status)
+     {
+     	console.log("Its done bro " + response, status);
+     }
+
+     
+     
+     $("#updateDoctorBtn").on("click", function(e) {
+        let data = {
+     		   docID: $($("#newForm")[0].docID).val(),
+     		   docFname: $($("#newForm")[0].docFname).val(),
+     		   docLname: $($("#newForm")[0].docLname).val(),
+     		   docPosition: $($("#newForm")[0].docPosition).val(),
+     		   docFee: $($("#newForm")[0].docFee).val(),
+     		   docAddress: $($("#newForm")[0].docAddress).val(),
+     		   mobileNo: $($("#newForm")[0].mobileNo).val(),
+     		   hosID: $($("#newForm")[0].hosID).val()
+        } 
+        
+         updateDoctorDetails($($("#newForm")[0].docID).val(), data);
+         $("#newForm").trigger("reset");
+         $("#updateDoctorBtn").hide();
+         e.preventDefault();
+         
+        
+     });
+     
     
 });
   

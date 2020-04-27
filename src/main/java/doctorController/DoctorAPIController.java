@@ -47,7 +47,7 @@ public class DoctorAPIController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		DoctorService d = new DoctorService();
-	
+		
 		List<Object> doc = new ArrayList<>();
 		
 		Map<String, String> docDetails = getParasMap(request);
@@ -73,6 +73,25 @@ public class DoctorAPIController extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		DoctorService d = new DoctorService();
+		
+		List<Object> doc = new ArrayList<>();
+		
+		Map<String, String> docUpdateDetails = getParasMap(request);
+//		
+		doc.add(Integer.parseInt(docUpdateDetails.get("docID").toString()));
+		doc.add(docUpdateDetails.get("docFname").toString());
+		doc.add(docUpdateDetails.get("docLname").toString());
+		doc.add(docUpdateDetails.get("docPosition").toString());
+		doc.add(Double.parseDouble((docUpdateDetails.get("docFee").toString())));
+		doc.add(Integer.parseInt(docUpdateDetails.get("mobileNo").toString()));
+		doc.add(docUpdateDetails.get("docAddress").toString());
+		doc.add(Integer.parseInt(docUpdateDetails.get("hosID").toString()));
+		
+		System.out.println(doc.toString());
+		d.Update(doc);
+		response.getWriter().write("true"); 
+		
 	}
 
 	/**
