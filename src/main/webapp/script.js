@@ -39,7 +39,55 @@ $(document).ready(function(){
         });
     }
     
- 
+    $("#submitDoctorBtn").on("click", function(e) {
+        let data = {
+     		   docID: $($("#newForm")[0].docID).val(),
+     		   docFname: $($("#newForm")[0].docFname).val(),
+     		   docLname: $($("#newForm")[0].docLname).val(),
+     		   docPosition: $($("#newForm")[0].docPosition).val(),
+     		   docFee: $($("#newForm")[0].docFee).val(),
+     		   docAddress: $($("#newForm")[0].docAddress).val(),
+     		   mobileNo: $($("#newForm")[0].mobileNo).val(),
+     		   hosID: $($("#newForm")[0].hosID).val()
+        } 
+        
+        
+         createDoctor(data);
+         $("#newForm").trigger("reset");
+         e.preventDefault();
+        
+     });
+     
+     
+     function createDoctor(data) {
+         $.ajax({
+             url: 'doctorAPI',
+             method: 'POST',
+             dataType: 'json',
+             data: data,
+             success: function(data) {
+                 console.log(data);
+                 getRegisteredDoctors();
+             },
+         
+         });
+         getRegisteredDoctors();
+     }
+     
+     function loadButtons() {
+         $(".editTut").click(function(e){
+             getSingleDoctor($($(this)[0]).data("docid"));
+             $("#submitDoctorBtn").hide();
+             $("#updateDoctorBtn").show();
+             e.preventDefault();
+             
+         });
+         
+         $(".deleteTut").click(function(e){
+             deleteDoctorDetails($($(this)[0]).data("docid"));
+             e.preventDefault();
+         })
+     }
     
 });
   

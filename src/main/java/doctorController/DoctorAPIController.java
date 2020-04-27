@@ -45,10 +45,25 @@ public class DoctorAPIController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
-
 		
+		DoctorService d = new DoctorService();
+	
+		List<Object> doc = new ArrayList<>();
+		
+		Map<String, String> docDetails = getParasMap(request);
+		
+		doc.add(Integer.parseInt(docDetails.get("docID").toString()));
+		doc.add(docDetails.get("docFname").toString());
+		doc.add(docDetails.get("docLname").toString());
+		doc.add(docDetails.get("docPosition").toString());
+		doc.add(Double.parseDouble((docDetails.get("docFee").toString())));
+		doc.add(Integer.parseInt(docDetails.get("mobileNo").toString()));
+		doc.add(docDetails.get("docAddress").toString());
+		doc.add(Integer.parseInt(docDetails.get("hosID").toString()));
+		
+		d.Create(doc);
+
+
 		
 	}
 
