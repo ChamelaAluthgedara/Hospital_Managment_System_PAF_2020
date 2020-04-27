@@ -10,7 +10,7 @@ $(document).ready(function(){
     function getRegisteredDoctors(){
         $('#doctorsDetailssBody').html('');
         $.ajax({
-            url: 'http://localhost:8081/HospitalManagementPAF2020/webapi/doctors/',
+            url: 'webapi/doctors/',
             method: 'get',
             dataType: 'json',
             data: {
@@ -90,12 +90,13 @@ $(document).ready(function(){
      }
      
      function getSingleDoctor(id){
+    	 console.log(id);
          $.ajax({
-             url: 'doctorAPI',
+             url: 'webapi/doctors/doctor/' + id,
              method: 'get',
              dataType: 'json',
-             data: id,
              success: function(data) {
+            	 console.log(data);
                  $($("#newForm")[0].docID).val(data.docID);
                  $($("#newForm")[0].docFname).val(data.docFName);
                  $($("#newForm")[0].docLname).val(data.docLName);
